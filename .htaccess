@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# Redirigir todo a login.php si no está autenticado
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/login\.php$
+RewriteCond %{REQUEST_URI} !^/api\.php$
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|gif)$
+RewriteRule ^(.*)$ login.php [R,L]
+
+# Protección adicional
+<FilesMatch "\.(php|ini|log)$">
+    Require all denied
+</FilesMatch>
+
+<Files "auth.php">
+    Require all denied
+</Files>
